@@ -16,6 +16,7 @@ enum Chunk {
     Value(Value),
 }
 
+// only needs to parse chunks that are not values
 fn parse_chunk(chunk: &str) -> Chunk {
     if let Ok(instr) = Opcode::from_str(chunk) {
         Chunk::Byte(instr as u8)

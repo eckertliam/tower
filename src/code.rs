@@ -117,16 +117,6 @@ impl Code {
                 println!("SHL ${} ${} ${}", r1, r2, r3);
                 offset + instruction.get_offset() + 1
             }
-            Opcode::INCR => {
-                let register = self.raw[offset + 1];
-                println!("INCRI ${}", register);
-                offset + instruction.get_offset() + 1
-            }
-            Opcode::DECR => {
-                let register = self.raw[offset + 1];
-                println!("DECR ${}", register);
-                offset + instruction.get_offset() + 1
-            }
             Opcode::JMP => {
                 let register = self.raw[offset + 1];
                 println!("JMP {}", register);

@@ -100,7 +100,39 @@ impl Machine {
                     self.pc += 4;
                 }
                 5 => {
-                    break;
+                    self.sub(self.code.raw[self.pc + 1], self.code.raw[self.pc + 2], self.code.raw[self.pc + 3]);
+                    self.pc += 4;
+                }
+                6 => {
+                    self.mul(self.code.raw[self.pc + 1], self.code.raw[self.pc + 2], self.code.raw[self.pc + 3]);
+                    self.pc += 4;
+                }
+                7 => {
+                    self.div(self.code.raw[self.pc + 1], self.code.raw[self.pc + 2], self.code.raw[self.pc + 3]);
+                    self.pc += 4;
+                }
+                8 => {
+                    self.and(self.code.raw[self.pc + 1], self.code.raw[self.pc + 2], self.code.raw[self.pc + 3]);
+                    self.pc += 4;
+                }
+                9 => {
+                    self.or(self.code.raw[self.pc + 1], self.code.raw[self.pc + 2], self.code.raw[self.pc + 3]);
+                    self.pc += 4;
+                }
+                10 => {
+                    self.xor(self.code.raw[self.pc + 1], self.code.raw[self.pc + 2], self.code.raw[self.pc + 3]);
+                    self.pc += 4;
+                }
+                11 => {
+                    self.shr(self.code.raw[self.pc + 1], self.code.raw[self.pc + 2], self.code.raw[self.pc + 3]);
+                    self.pc += 4;
+                }
+                12 => {
+                    self.shl(self.code.raw[self.pc + 1], self.code.raw[self.pc + 2], self.code.raw[self.pc + 3]);
+                    self.pc += 4;
+                }
+                13 => {
+                    self.jmp(self.code.raw[self.pc + 1]);
                 }
                 _ => {
                     panic!("Invalid opcode");
