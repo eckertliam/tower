@@ -61,8 +61,83 @@ impl Code {
                 println!("ADD ${} ${} ${}", r1, r2, r3);
                 offset + instruction.get_offset() + 1
             }
+            Opcode::SUB => {
+                let r1 = self.raw[offset + 1];
+                let r2 = self.raw[offset + 2];
+                let r3 = self.raw[offset + 3];
+                println!("SUB ${} ${} ${}", r1, r2, r3);
+                offset + instruction.get_offset() + 1
+            }
+            Opcode::MUL => {
+                let r1 = self.raw[offset + 1];
+                let r2 = self.raw[offset + 2];
+                let r3 = self.raw[offset + 3];
+                println!("MUL ${} ${} ${}", r1, r2, r3);
+                offset + instruction.get_offset() + 1
+            }
+            Opcode::DIV => {
+                let r1 = self.raw[offset + 1];
+                let r2 = self.raw[offset + 2];
+                let r3 = self.raw[offset + 3];
+                println!("DIV ${} ${} ${}", r1, r2, r3);
+                offset + instruction.get_offset() + 1
+            }
+            Opcode::AND => {
+                let r1 = self.raw[offset + 1];
+                let r2 = self.raw[offset + 2];
+                let r3 = self.raw[offset + 3];
+                println!("AND ${} ${} ${}", r1, r2, r3);
+                offset + instruction.get_offset() + 1
+            }
+            Opcode::OR => {
+                let r1 = self.raw[offset + 1];
+                let r2 = self.raw[offset + 2];
+                let r3 = self.raw[offset + 3];
+                println!("OR ${} ${} ${}", r1, r2, r3);
+                offset + instruction.get_offset() + 1
+            }
+            Opcode::XOR => {
+                let r1 = self.raw[offset + 1];
+                let r2 = self.raw[offset + 2];
+                let r3 = self.raw[offset + 3];
+                println!("XOR ${} ${} ${}", r1, r2, r3);
+                offset + instruction.get_offset() + 1
+            }
+            Opcode::SHR => {
+                let r1 = self.raw[offset + 1];
+                let r2 = self.raw[offset + 2];
+                let r3 = self.raw[offset + 3];
+                println!("SHR ${} ${} ${}", r1, r2, r3);
+                offset + instruction.get_offset() + 1
+            }
+            Opcode::SHL => {
+                let r1 = self.raw[offset + 1];
+                let r2 = self.raw[offset + 2];
+                let r3 = self.raw[offset + 3];
+                println!("SHL ${} ${} ${}", r1, r2, r3);
+                offset + instruction.get_offset() + 1
+            }
+            Opcode::INCR => {
+                let register = self.raw[offset + 1];
+                println!("INCRI ${}", register);
+                offset + instruction.get_offset() + 1
+            }
+            Opcode::DECR => {
+                let register = self.raw[offset + 1];
+                println!("DECR ${}", register);
+                offset + instruction.get_offset() + 1
+            }
+            Opcode::JMP => {
+                let register = self.raw[offset + 1];
+                println!("JMP {}", register);
+                offset + instruction.get_offset() + 1
+            }
             Opcode::HALT => {
                 println!("HALT");
+                offset + 1
+            }
+            _ => {
+                println!("Unknown opcode");
                 offset + 1
             }
         }
