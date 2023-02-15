@@ -134,8 +134,11 @@ impl Machine {
                 13 => {
                     self.jmp(self.code.raw[self.pc + 1]);
                 }
+                14 => {
+                    break;
+                }
                 _ => {
-                    panic!("Invalid opcode");
+                    panic!("Invalid opcode {:?} at {}", instruction, self.pc);
                 }
             }
         }
@@ -143,3 +146,75 @@ impl Machine {
 
 }
 
+// tests for machine
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::opcode::Opcode;
+
+    #[test]
+    fn test_load() {
+        let mut machine = Machine::new();
+        let mut code = Code::new();
+        code.add_const(Value::from(1i8));
+        code.write_code(Opcode::LOAD as u8, 0);
+        code.write_code(0, 0);
+        code.write_code(0, 0);   
+        code.write_code(Opcode::HALT as u8, 1); 
+        machine.run(code);
+        assert_eq!(machine.registers[0], Value::I8(1));
+    }
+
+    #[test]
+    fn test_store() {
+        let mut machine = Machine::new();
+        let mut code = Code::new();
+        code.add_const(Value::from(1i8));
+        code.write_code(Opcode::LOAD as u8, 0);
+        code.write_code(0, 0);
+        code.write_code(0, 0);   
+        code.write_code(Opcode::STORE as u8, 1); 
+        code.write_code(0, 1);
+        code.write_code(0, 1);   
+        code.write_code(Opcode::HALT as u8, 2); 
+        machine.run(code);
+        assert_eq!(machine.code.const_pool[0], Value::I8(1));
+    }
+
+    #[test]
+    fn test_move() {
+        let mut machine = Machine::new();
+        let mut code = Code::new();
+        code.add_const(Value::from(10i8));
+        code.write_code(Opcode::LOAD as u8, 0);
+        code.write_code(0, 0);
+        code.write_code(0, 0);   
+        code.write_code(Opcode::MOVE as u8, 1); 
+        code.write_code(1, 1);
+        code.write_code(0, 1);   
+        code.write_code(Opcode::HALT as u8, 2); 
+        machine.run(code);
+        assert_eq!(machine.registers[1], Value::I8(10));
+    }
+
+    #[test]
+    fn test_add() {
+        let mut machine = Machine::new();
+        let mut code = Code::new();
+        code.add_const(Value::from(10i8));
+        code.add_const(Value::from(20i8));
+        code.write_code(Opcode::LOAD as u8, 0);
+        code.write_code(0, 0);
+        code.write_code(0, 0);
+        code.write_code(Opcode::LOAD as u8, 1);
+        code.write_code(1, 1);
+        code.write_code(1, 1);
+        code.write_code(Opcode::ADD as u8, 2);
+        code.write_code(2, 2);
+        code.write_code(0, 2);
+        code.write_code(1, 2);
+        code.write_code(Opcode::HALT as u8, 3);
+        machine.run(code);
+        assert_eq!(machine.registers[2], Value::I8(30));
+    }
+}

@@ -2,7 +2,6 @@ use std::str::FromStr;
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Value {
-    Null,
     Bool(bool),
     I8(i8),
     I16(i16),
@@ -19,7 +18,6 @@ pub enum Value {
 impl std::fmt::Display for Value {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
-            Value::Null => write!(f, "null"),
             Value::Bool(b) => write!(f, "{}", b),
             Value::I8(i) => write!(f, "{}", i),
             Value::I16(i) => write!(f, "{}", i),

@@ -17,8 +17,8 @@ pub enum Opcode {
     SHR,
     SHL,
     JMP,
-    CONST,
     HALT,
+    CONST,
 }
 
 impl ToString for Opcode {
@@ -84,8 +84,8 @@ impl From<u8> for Opcode {
             11 => Opcode::SHR,
             12 => Opcode::SHL,
             13 => Opcode::JMP,
-            14 => Opcode::CONST,
-            15 => Opcode::HALT,
+            14 => Opcode::HALT,
+            15 => Opcode::CONST,
             _ => panic!("Invalid opcode"),
         }
     }
